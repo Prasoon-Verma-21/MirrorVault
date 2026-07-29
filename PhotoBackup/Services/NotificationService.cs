@@ -6,7 +6,7 @@ public class NotificationService
 {
     public void ShowBackupStarted()
     {
-        MessageBox.Show(
+        System.Windows.MessageBox.Show(
             "Backup has started.",
             "MirrorVault",
             MessageBoxButton.OK,
@@ -15,7 +15,7 @@ public class NotificationService
 
     public void ShowBackupCompleted()
     {
-        MessageBox.Show(
+        System.Windows.MessageBox.Show(
             "Backup completed successfully.",
             "MirrorVault",
             MessageBoxButton.OK,
@@ -24,7 +24,7 @@ public class NotificationService
 
     public void ShowNothingToBackup()
     {
-        MessageBox.Show(
+        System.Windows.MessageBox.Show(
             "No changes detected. Backup is already up to date.",
             "MirrorVault",
             MessageBoxButton.OK,

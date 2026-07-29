@@ -1,6 +1,7 @@
 ﻿using MirrorVault.Models;
 using MirrorVault.Services;
 using System.Windows;
+using System.ComponentModel;
 
 namespace PhotoBackup;
 
@@ -9,6 +10,7 @@ public partial class MainWindow : Window
     private readonly BackupConfiguration _configuration;
     private readonly BackupService _backupService;
     private readonly UsbDetectionService _usbDetectionService;
+    private readonly TrayIconService _trayIconService;
 
     public MainWindow()
     {
@@ -43,6 +45,9 @@ public partial class MainWindow : Window
             robocopyService,
             notificationService);
         _usbDetectionService = new UsbDetectionService();
+        _trayIconService = new TrayIconService();
+        _trayIconService.ExitRequested += TrayIconService_ExitRequested;
+        _trayIconService.OpenRequested += TrayIconService_OpenRequested;
 
         Loaded += MainWindow_Loaded;
     }
@@ -64,5 +69,40 @@ public partial class MainWindow : Window
         {
             await _backupService.RunBackupAsync();
         });
+
+    }
+
+    private void TrayIconService_OpenRequested()
+    {
+        Dispatcher.Invoke(() =>
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            Activate();
+        });
+    }
+
+    private void TrayIconService_ExitRequested()
+    {
+        _configuration.MinimizeToTray = false;
+
+        Dispatcher.Invoke(() =>
+        {
+            Close();
+        });
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        if (_configuration.MinimizeToTray)
+        {
+            e.Cancel = true;
+            Hide();
+            return;
+        }
+
+        _trayIconService.Dispose();
+
+        base.OnClosing(e);
     }
 }
