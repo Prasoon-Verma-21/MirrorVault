@@ -7,7 +7,7 @@ public class RobocopyService
 {
     public string BuildArguments(string source, string destination)
     {
-        return $"{source} {destination} " +
+        return $"\"{source}\" \"{destination}\" " +
                $"{RobocopyArguments.Mirror} " +
                $"{RobocopyArguments.CopyDataAttributesTimestamps} " +
                $"{RobocopyArguments.RetryCount} " +
@@ -15,5 +15,18 @@ public class RobocopyService
                $"{RobocopyArguments.NoProgress} " +
                $"{RobocopyArguments.NoFileList} " +
                $"{RobocopyArguments.NoDirectoryList}";
+    }
+
+    public ProcessStartInfo CreateProcessStartInfo(string source, string destination)
+    {
+        return new ProcessStartInfo
+        {
+            FileName = "robocopy",
+            Arguments = BuildArguments(source, destination),
+            CreateNoWindow = true,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        };
     }
 }

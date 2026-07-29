@@ -7,4 +7,8 @@ public class BackupConfiguration
     public string DestinationPath { get; set; } = string.Empty;
 
     public string DriveLabel { get; set; } = string.Empty;
+
+    public bool DeleteRemovedFiles { get; set; } = true;
+
+    public bool StartWithWindows { get; set; } = true;
 }

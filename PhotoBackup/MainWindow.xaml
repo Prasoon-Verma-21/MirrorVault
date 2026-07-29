@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoBackup"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MirrorVault"
+        Height="250"
+        Width="500">
 
+    <Grid>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="MirrorVault is Running..." />
     </Grid>
+
 </Window>
