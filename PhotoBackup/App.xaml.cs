@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PhotoBackup;
+namespace MirrorVault;
 
 public partial class App : System.Windows.Application
 {

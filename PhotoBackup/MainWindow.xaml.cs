@@ -1,9 +1,10 @@
 ﻿using MirrorVault.Models;
 using MirrorVault.Services;
 using System.Windows;
+using System;
 using System.ComponentModel;
 
-namespace PhotoBackup;
+namespace MirrorVault;
 
 public partial class MainWindow : Window
 {
@@ -15,6 +16,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
 
         ConfigurationService configurationService = new();
         BackupConfiguration? savedConfiguration = configurationService.Load();
@@ -39,6 +41,17 @@ public partial class MainWindow : Window
 
         RobocopyService robocopyService = new();
         NotificationService notificationService = new();
+
+        StartupService startupService = new();
+
+        if (_configuration.StartWithWindows)
+        {
+            startupService.EnableStartup(Environment.ProcessPath!);
+        }
+        else
+        {
+            startupService.DisableStartup();
+        }
 
         _backupService = new BackupService(
             _configuration,
