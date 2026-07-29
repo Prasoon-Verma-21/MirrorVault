@@ -11,4 +11,8 @@ public class BackupConfiguration
     public bool DeleteRemovedFiles { get; set; } = true;
 
     public bool StartWithWindows { get; set; } = true;
+
+    public bool MinimizeToTray { get; set; } = true;
+
+    public bool RunBackupOnStartup { get; set; } = true;
 }

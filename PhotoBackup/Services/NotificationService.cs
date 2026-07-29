@@ -25,7 +25,7 @@ public class NotificationService
     public void ShowNothingToBackup()
     {
         MessageBox.Show(
-            "There is nothing to backup.",
+            "No changes detected. Backup is already up to date.",
             "MirrorVault",
             MessageBoxButton.OK,
             MessageBoxImage.Information);

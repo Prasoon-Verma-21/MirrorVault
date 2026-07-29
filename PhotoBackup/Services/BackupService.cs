@@ -7,21 +7,21 @@ public class BackupService
 {
     private readonly BackupConfiguration _configuration;
     private readonly RobocopyService _robocopyService;
-    private readonly UsbDetectionService _usbDetectionService;
     private readonly NotificationService _notificationService;
 
-    public BackupService(BackupConfiguration configuration)
+    public BackupService(
+        BackupConfiguration configuration,
+        RobocopyService robocopyService,
+        NotificationService notificationService)
     {
         _configuration = configuration;
-        _robocopyService = new RobocopyService();
-        _usbDetectionService = new UsbDetectionService();
-        _notificationService = new NotificationService();
+        _robocopyService = robocopyService;
+        _notificationService = notificationService;
     }
 
     public async Task RunBackupAsync()
     {
-        if (!_usbDetectionService.IsBackupDriveConnected(_configuration.DriveLabel))
-            return;
+        Debug.WriteLine("RunBackupAsync() called");
 
         _notificationService.ShowBackupStarted();
 
@@ -38,6 +38,9 @@ public class BackupService
 
         await process.WaitForExitAsync();
 
-        _notificationService.ShowBackupCompleted();
+        if (_robocopyService.HasChanges(process.ExitCode))
+            _notificationService.ShowBackupCompleted();
+        else
+            _notificationService.ShowNothingToBackup();
     }
 }

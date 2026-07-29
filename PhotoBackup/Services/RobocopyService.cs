@@ -29,4 +29,9 @@ public class RobocopyService
             RedirectStandardError = true
         };
     }
+
+    public bool HasChanges(int exitCode)
+    {
+        return exitCode >= 1 && exitCode <= 7;
+    }
 }
