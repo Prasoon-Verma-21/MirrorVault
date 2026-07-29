@@ -1,5 +1,19 @@
-﻿namespace MirrorVault.Services;
+﻿using MirrorVault.Helpers;
+using System.Diagnostics;
+
+namespace MirrorVault.Services;
 
 public class RobocopyService
 {
+    public string BuildArguments(string source, string destination)
+    {
+        return $"{source} {destination} " +
+               $"{RobocopyArguments.Mirror} " +
+               $"{RobocopyArguments.CopyDataAttributesTimestamps} " +
+               $"{RobocopyArguments.RetryCount} " +
+               $"{RobocopyArguments.WaitTime} " +
+               $"{RobocopyArguments.NoProgress} " +
+               $"{RobocopyArguments.NoFileList} " +
+               $"{RobocopyArguments.NoDirectoryList}";
+    }
 }

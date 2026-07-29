@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Managers\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
